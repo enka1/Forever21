@@ -1,0 +1,12 @@
+# import * from './type.graphql' 
+
+type Query {
+    category(where: CategoryInput): Category
+    categories(where: CategoryInput): [Category]
+}
+
+type Mutation {
+    addNewCategory(category: CategoryInput): Category
+    updateCategory(category: CategoryInput): Category
+    deleteCategory(id: String): Category
+}

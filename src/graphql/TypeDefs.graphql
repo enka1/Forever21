@@ -1,0 +1,2 @@
+# import Query.*, Mutation.* from './categories/schema.graphql'
+# import Query.*, Mutation.* from './products/schema.graphql'

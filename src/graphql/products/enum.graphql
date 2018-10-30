@@ -1,0 +1,10 @@
+enum ProductSortCases {
+    name_ASC
+    name_DESC
+    importDate_ASC
+    importDate_DESC
+    importPrice_ASC
+    importPrice_DESC
+    exportPrice_ASC
+    exportPrice_DESC
+}

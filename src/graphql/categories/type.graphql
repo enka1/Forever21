@@ -1,0 +1,11 @@
+# import * from '../scalars/scalar.graphql'
+
+type Category {
+    _id: MongoID
+    name: String
+}
+
+input CategoryInput {
+    _id: String
+    name: String
+}

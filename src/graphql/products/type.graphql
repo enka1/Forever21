@@ -1,0 +1,39 @@
+# import * from '../scalars/scalar.graphql'
+# import * from '../categories/type.graphql'
+
+type ProductInformation {
+    title: String
+    content: String
+}
+
+type ProductPattern {
+    images: [String]
+    size: [String]
+}
+
+type Product {
+    _id: MongoID
+    code: String
+    name: String
+    categories: [Category]
+    information: [ProductInformation]
+    patterns: [ProductPattern]
+    importDate: DateTime
+    quantity: Int
+    importPrice: Float
+    exportPrice: Float
+}
+
+
+input ProductInput {
+    _id: String
+    code: String
+    name: String
+    categories: [Category]
+    information: [ProductInformation]
+    patterns: [ProductPattern]
+    importDate: DateTime
+    quantity: Int
+    importPrice: Float
+    exportPrice: Float
+}
