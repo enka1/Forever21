@@ -30,18 +30,14 @@ export const Query = {
 
 export const Mutation = {
    async addNewProduct(_, { product }) {
-      let productMongoID = mongoose
-         .Types
-         .ObjectId()
-      let patterns = product
-         .patterns
-         .map(pattern => {
-            return {
-               ...pattern,
-               product: productMongoID
-            }
-         })
-      let patterns = await Pattern.insertMany(patterns)
+      let productMongoID = mongoose.Types.ObjectId()
+      let patterns = product.patterns.map(pattern => {
+         return {
+            ...pattern,
+            product: productMongoID
+         }
+      })
+      patterns = await Pattern.insertMany(patterns)
       let newProduct = await Product.create({
          ...product,
          _id: productMongoID,
@@ -50,6 +46,7 @@ export const Mutation = {
             .categories
             .map(category => mongoose.Types.ObjectId(category)) : [],
          patterns,
+         importDate: product.importDate || new Date(),
          importPrice: product.importPrice || 0,
          exportPrice: product.exportPrice || 0,
          quantity: product.quantity || 0

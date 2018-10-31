@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema({
             type: String
         },
         content: {
-            type: String
+            type: [String]
         }
     }],
     patterns: [{
@@ -32,7 +32,7 @@ const ProductSchema = new mongoose.Schema({
     importPrice: {
         type: Number
     },
-    export_Price: {
+    exportPrice: {
         type: Number
     },
     quantity: {
