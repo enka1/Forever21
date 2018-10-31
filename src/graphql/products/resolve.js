@@ -2,6 +2,25 @@ import mongoose from 'mongoose'
 
 import { Product, Pattern } from '../../models'
 
+function modifyProductCritera(criteria) {
+   let modifyCriteria = {}
+   if (criteria.categories) {
+      modifyCriteria = {
+         ...modifyCriteria,
+         categories: {
+            $in: criteria.categories.map(category => new mongoose.Types.ObjectId(category))
+         }
+      }
+   }
+   if (criteria.name) {
+      modifyCriteria = {
+         ...modifyCriteria,
+         name: new RegExp(criteria.name, 'i')
+      }
+   }
+   return modifyCriteria
+}
+
 export const Query = {
 
    async product(_, { where }) {
@@ -10,17 +29,15 @@ export const Query = {
          .lean()
    },
 
-   async products(_, { where, sort, skip, limit }) {
-      let categories = where
-         .categories
-         .map(category => new mongoose.Types.ObjectId(category))
+   async products(_, { criteria, sort, skip, limit, minPrice, maxPrice }) {
       return await Product.find({
-            ...where,
-            name: new RegExp(where.name, 'i'),
-            categories: {
-               $eq: categories
+            ...modifyProductCritera(criteria),
+            exportPrice: {
+               $gte: minPrice,
+               $lte: maxPrice
             }
          })
+         .populate('patterns')
          .sort(sort)
          .skip(skip)
          .limit(limit)
