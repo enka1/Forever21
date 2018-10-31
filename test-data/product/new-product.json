@@ -1,0 +1,36 @@
+{
+    "product": {
+      "code": "2000331491",
+      "name": "Hooded Open-Knit Top",
+      "categories": ["5bd84f3ce45d822cca255afc"],
+      "information": [{
+        "title": "Details",
+        "content": ["A chenille open-knit top featuring a drawstring hood, dropped shoulders, long sleeves, a vented high-low hem, and ribbed trim.", "- This is an independent brand and not a Forever 21 branded item."]
+      },{
+        "title": "Content + Care",
+        "content": ["- 55% cotton, 45% acrylic", "- Hand wash cold"]
+      }, {
+        "title": "Size + Fit",
+        "content": "- Model is 5'10\" and wearing a S/M"
+      }],
+      "patterns": [{
+        "patternColorType": {
+          "name": "Blush",
+          "logo": "https://www.forever21.com/images/sw_22/00331491-02.jpg"
+        },
+        "images": ["https://www.forever21.com/images/1_front_750/00331491-02.jpg", "https://www.forever21.com/images/2_side_750/00331491-02.jpg", "https://www.forever21.com/images/3_back_750/00331491-02.jpg", "https://www.forever21.com/images/4_full_750/00331491-02.jpg"],
+        "size": ["SM/MED", "MED/LG"]
+      },{
+        "patternColorType": {
+          "name": "Taupe",
+          "logo": "https://www.forever21.com/images/sw_22/00331491-03.jpg"
+        },
+        "images": ["https://www.forever21.com/images/1_front_750/00331491-03.jpg", "https://www.forever21.com/images/2_side_750/00331491-03.jpg", "https://www.forever21.com/images/3_back_750/00331491-03.jpg", "https://www.forever21.com/images/4_full_750/00331491-03.jpg"],
+        "size": ["SM/MED", "MED/LG"]
+      }],
+      "importDate": null,
+      "importPrice": 15.20,
+      "exportPrice": 38.00,
+      "quantity": 500
+    }
+  }

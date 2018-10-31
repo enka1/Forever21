@@ -2,16 +2,17 @@ import mongoose from 'mongoose'
 
 const ProductSchema = new mongoose.Schema({
     code: {
-        name: String,
-        unique: true,
-        required: true
+        type: String,
+        required: true,
+        unique: true
     },
     name: {
         type: String,
         required: true
     },
     categories: [{
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
     }],
     information: [{
         title: {
@@ -29,12 +30,13 @@ const ProductSchema = new mongoose.Schema({
         type: Date
     },
     importPrice: {
-        type: Number,
-        default: 0
+        type: Number
+    },
+    export_Price: {
+        type: Number
     },
     quantity: {
-        type: Number,
-        default: 0
+        type: Number
     }
 })
 

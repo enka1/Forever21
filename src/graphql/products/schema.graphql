@@ -3,7 +3,7 @@
 
 type Query {
     product(where: ProductInput): Product
-    products(where: ProductInput = {}, skip: Int = 0, limit: Int = 0, sort: [ProductSortCases] = []): [Product]
+    products(where: ProductInput, skip: Int, limit: Int, sort: [ProductSortCases]): [Product]
 }
 
 type Mutation {

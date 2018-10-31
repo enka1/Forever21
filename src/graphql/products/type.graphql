@@ -1,14 +1,20 @@
 # import * from '../scalars/scalar.graphql'
 # import * from '../categories/type.graphql'
 
-type ProductInformation {
-    title: String
-    content: String
+type PatternColorType {
+    name: String
+    logo: String
 }
 
 type ProductPattern {
+    patternColorType: PatternColorType
     images: [String]
     size: [String]
+}
+
+type ProductInformation {
+    title: String
+    content: [String]
 }
 
 type Product {
@@ -19,21 +25,36 @@ type Product {
     information: [ProductInformation]
     patterns: [ProductPattern]
     importDate: DateTime
-    quantity: Int
     importPrice: Float
     exportPrice: Float
+    quantity: Int
 }
 
+input PatternColorTypeInput {
+    name: String
+    logo: String
+}
+
+input ProductPatternInput {
+    patternColorType: PatternColorTypeInput
+    images: [String]
+    size: [String]
+}
+
+input ProductInformationInput {
+    title: String
+    content: [String]
+}
 
 input ProductInput {
     _id: String
     code: String
     name: String
-    categories: [Category]
-    information: [ProductInformation]
-    patterns: [ProductPattern]
+    categories: [String]
+    information: [ProductInformationInput]
+    patterns: [ProductPatternInput]
     importDate: DateTime
-    quantity: Int
     importPrice: Float
     exportPrice: Float
+    quantity: Int
 }
