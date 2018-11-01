@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
 
 export default function() {
-   let mongodbURL = `mongodb://${process.env.MONGODB_USERNAME}:${MONGODB_PASSWORD}@localhost:27017`
-   mongoose.connect(mongodbURL, { useNewUrlParser: true }).catch(er => console.log(er))
+   let mongodbURL = `mongodb://${process.env.MONGODB_SERVICE}:27017/Shopping`
+   mongoose.connect(mongodbURL, { useNewUrlParser: true }).catch(err => {
+      process.exit(0)
+   })
    mongoose.set('debug', true)
 }

@@ -11,10 +11,15 @@ connectToMongo()
 
 const app = express()
 app.use('/graphql', GraphQLServer({
-    schema,
-    graphiql: true
+   schema,
+   graphiql: true
 }))
-app.listen(process.env.PORT)
+app.listen(process.env.PORT, (err) => {
+   if (err) {
+      console.log(err)
+   } else
+      console.log("Server is opening")
+})
 
 // const server = new ApolloServer({schema})
 // server.listen(process.env.PORT).then(({ url }) => {

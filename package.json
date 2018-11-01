@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-watch src",
-    "build": "babel src -d build --copy-files"
+    "start": "node server",
+    "build": "babel src -d server --copy-files"
   },
   "author": "",
   "license": "ISC",
