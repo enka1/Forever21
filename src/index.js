@@ -7,7 +7,7 @@ import connectToMongo from './models/connect'
 import schema from './graphql'
 
 config()
-connectToMongo(process.env.MONGO_URL)
+connectToMongo()
 
 const app = express()
 app.use('/graphql', GraphQLServer({

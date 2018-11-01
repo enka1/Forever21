@@ -1,0 +1,19 @@
+version: '3'
+services: 
+  server:
+    build: .
+    volumes: 
+      - .:/app
+      - /app/node_modules
+    ports: 
+      - "5000:3001"
+    enviroment: 
+      PORT: 5000
+      MONGDB_USERNAME: marumi
+      MONGODB_PASSWORD: marumi123
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: marumi
+      MONGO_INITDB_ROOT_PASSWORD: marumi123
