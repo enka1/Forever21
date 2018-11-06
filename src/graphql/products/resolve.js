@@ -2,41 +2,40 @@ import mongoose from 'mongoose'
 
 import { Product, Pattern } from '../../models'
 
-function modifyProductCritera(criteria) {
+function modifyProductCritera(criteria, minPrice, maxPrice) {
    let modifyCriteria = {}
-   if (criteria.categories) {
+   let { categories, name } = criteria
+   if (categories)
       modifyCriteria = {
          ...modifyCriteria,
          categories: {
-            $in: criteria.categories.map(category => new mongoose.Types.ObjectId(category))
+            $in: categories.map(category => new mongoose.Types.ObjectId(category))
          }
       }
-   }
-   if (criteria.name) {
+   if (name)
       modifyCriteria = {
          ...modifyCriteria,
          name: new RegExp(criteria.name, 'i')
       }
-   }
+   if (minPrice && maxPrice)
+      modifyCriteria = {
+         ...modifyCriteria,
+         exportPrice: {
+            $gte: minPrice,
+            $lte: maxPrice
+         }
+      }
    return modifyCriteria
 }
 
 export const Query = {
-
-   async product(_, { where }) {
+   async product(_, { id }) {
       return await Product
-         .findOne(where)
+         .findById(id)
          .lean()
    },
-
    async products(_, { criteria, sort, skip, limit, minPrice, maxPrice }) {
-      return await Product.find({
-            ...modifyProductCritera(criteria),
-            exportPrice: {
-               $gte: minPrice,
-               $lte: maxPrice
-            }
-         })
+      return await Product.find({ ...modifyProductCritera(criteria, minPrice, maxPrice) })
          .populate('patterns')
          .sort(sort)
          .skip(skip)
@@ -48,33 +47,31 @@ export const Query = {
 export const Mutation = {
    async addNewProduct(_, { product }) {
       let productMongoID = mongoose.Types.ObjectId()
-      let patterns = product.patterns.map(pattern => {
-         return {
-            ...pattern,
-            product: productMongoID
-         }
-      })
+      let { patterns, categories, importDate, importPrice, exportPrice, quantity } = product
+      if (patterns)
+         patterns = patterns.map(pattern => {
+            return {
+               ...pattern,
+               product: productMongoID
+            }
+         })
       patterns = await Pattern.insertMany(patterns)
-      let newProduct = await Product.create({
+      return await Product.create({
          ...product,
          _id: productMongoID,
-         categories: product.categories ?
-            product
-            .categories
-            .map(category => mongoose.Types.ObjectId(category)) : [],
+         categories: categories ? categories.map(category => mongoose.Types.ObjectId(category)) : [],
          patterns,
-         importDate: product.importDate || new Date(),
-         importPrice: product.importPrice || 0,
-         exportPrice: product.exportPrice || 0,
-         quantity: product.quantity || 0
+         importDate: importDate || new Date(),
+         importPrice: importPrice || 0,
+         exportPrice: exportPrice || 0,
+         quantity: quantity || 0
       })
-      return newProduct
    },
 
    async updateProduct(_, { product }) {
-      let categories = product
-         .categories
-         .map(category => new mongoose.Types.ObjectId(category))
+      let { categories } = product
+      if (categories)
+         categories = categories.map(category => new mongoose.Types.ObjectId(category))
       return await Product.findByIdAndUpdate(product._id, {
          $set: {
             ...product,

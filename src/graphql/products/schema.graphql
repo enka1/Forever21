@@ -2,7 +2,7 @@
 # import * from './enum.graphql'
 
 type Query {
-    product(where: ProductInput): Product
+    product(id: String): Product
     products(criteria: ProductInput = {}, skip: Int, limit: Int, 
         sort: [ProductSortCases], minPrice: Int = 0, maxPrice: Int = 9999): [Product]
 }
